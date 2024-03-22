@@ -17,26 +17,31 @@ const Crear = () => {
     //guardar articulos en el backend
     const {datos} = await Peticion(Global.url+"crear", "POST", nuevoArticulo);
 
+    
     if(datos.status === "success"){
+      setResultado("guardado")
+    }else{
+      setResultado("error")
+    }
+
+    //subir imagen
+    const fileInput = document.querySelector("#file");
+
+    if(datos.status === "success" && fileInput.files[0]){
       setResultado("guardado");
 
-      //subir imagen
-      const fileInput = document.querySelector("#file");
       const formData = new FormData();
       formData.append("file0", fileInput.files[0]);
 
       const subida = await Peticion(Global.url+"subir-imagen/"+datos.articulo._id, "POST", formData, true);
 
-      if(subida.status === "success"){
+      if(subida.datos.status === "success"){
         setResultado("guardado")
       }else{
         setResultado("error")
       }
 
-    }else{
-      setResultado("error")
     }
-
   }
 
   return (
