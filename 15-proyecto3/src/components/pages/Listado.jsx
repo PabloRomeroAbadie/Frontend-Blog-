@@ -1,6 +1,17 @@
 import { Global } from "../../helpers/Global";
+import {Peticion} from "../../helpers/Peticion"
 
 const Listado = ({articulos, setArticulos}) => {
+
+    const eliminar = async(id) => {
+        let {datos} =  await Peticion(Global.url+"articulo/"+id, "DELETE");
+        
+        if(datos.status === "success"){
+            let articulosActualizados = articulos.filter(articulo => articulo._id !== id);
+            setArticulos(articulosActualizados);
+        }
+    }
+
     return (
         articulos.map(articulo => {
             return (
@@ -15,7 +26,9 @@ const Listado = ({articulos, setArticulos}) => {
                         <p className='description'>{articulo.contenido}</p>
 
                         <button className='edit'>Editar</button>
-                        <button className='delete'>Borrar</button>
+                        <button className='delete' onClick={()=> {
+                            eliminar(articulo._id)
+                        }}>Borrar</button>
                     </div>
                 </article>
             )
