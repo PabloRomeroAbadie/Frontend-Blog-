@@ -5,8 +5,8 @@ const Inicio = () => {
   return (
     <div className='jumbo'>
       <h1>Bienvenidos al blog con React</h1>
-      <p>Blog desarrollado con el MERN Stack (Mongo, Express, React y NodeJS</p>
-      <Link to="articulos" className='button'>Ver los articulos</Link>
+      <p>Blog desarrollado con el MERN Stack (Mongo, Express, React y NodeJS)</p>
+      <Link to="/articulos" className='button'>Ver los articulos</Link>
     </div> 
   )
 }
