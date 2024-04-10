@@ -24,14 +24,14 @@ const Editar = () => {
     }
   }
 
-  const guardarArticulo = async (e) => {
+  const editarArticulo = async (e) => {
     e.preventDefault();
 
     //recoger datos del formulario
     let nuevoArticulo = formulario;
 
     //guardar articulos en el backend
-    const { datos } = await Peticion(Global.url + "crear", "POST", nuevoArticulo);
+    const { datos } = await Peticion(Global.url + "articulo/"+params.id, "PUT", nuevoArticulo);
 
 
     if (datos.status === "success") {
@@ -68,16 +68,16 @@ const Editar = () => {
       <strong>{resultado == "guardado" ? "Articulo guardado con exito" : ""}</strong>
       <strong>{resultado == "error" ? "Los datos proporcionados son incorrectos" : ""}</strong>
       {/* Montar formulario */}
-      <form className='formulario' onSubmit={guardarArticulo}>
+      <form className='formulario' onSubmit={editarArticulo}>
 
         <div className='form-group'>
           <label htmlFor='titulo'>Titulo</label>
-          <input type="text" name='titulo' onChange={cambiado} value={articulo.titulo} />
+          <input type="text" name='titulo' onChange={cambiado} defaultValue={articulo.titulo} />
         </div>
 
         <div className='form-group'>
           <label htmlFor='contenido'>Contenido</label>
-          <textarea type="text" name='contenido' onChange={cambiado} value={articulo.contenido} />
+          <textarea type="text" name='contenido' onChange={cambiado} defaultValue={articulo.contenido} />
         </div>
 
         <div className='form-group'>
